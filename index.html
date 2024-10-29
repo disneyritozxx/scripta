@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scripta</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="script.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background-color: #1d1d1d;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            height: 40px;
+            border-radius: 20px;
+            border: 1.4px solid #333;
+            width: auto;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            color: #bb86fc;
+            margin: 0;
+        }
+
+        .theme-switcher {
+            cursor: pointer;
+            padding: 8px;
+            border: none;
+            width: 10%;
+            background: none;
+            color: #e0e0e0;
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+
+        .theme-switcher:hover {
+            transform: scale(1.1);
+        }
+
+        textarea {
+            width: 100%;
+            height: 180px;
+            background-color: #2a2a2a;
+            color: #ffffff;
+            border: 1px solid #3a3a4d;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 1rem;
+            resize: vertical;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            background-color: #03dac6;
+            color: #1d1d1d;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #018786;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .mark-discord {
+            background-color: #7289da;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .mark-discord:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        pre {
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+            border: 1px solid #3a3a4d;
+            border-radius: 8px;
+            padding: 10px;
+            height: 100px;
+            overflow-y: auto;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .light-theme {
+            background-color: #f4f4f4;
+            color: #1d1d1d;
+        }
+
+        .light-theme .container {
+            background-color: #ffffff;
+            color: #1d1d1d;
+            box-shadow: 0 8px 16px rgba(200, 200, 200, 0.5);
+        }
+
+        .light-theme .logo {
+            border: 1.4px solid #999;
+        }
+
+        .light-theme .theme-switcher {
+            color: #333;
+        }
+
+        .light-theme h1 {
+            color: #6200ee;
+        }
+
+        .light-theme button {
+            background-color: #6200ee;
+            color: #ffffff;
+        }
+
+        .light-theme button:hover {
+            background-color: #3700b3;
+        }
+
+        .light-theme .mark-discord {
+            background-color: #7289da;
+        }
+
+        .light-theme textarea,
+        .light-theme pre {
+            background-color: #f4f4f4;
+            color: #333;
+            border: 1px solid #ccc;
+        }
+
+        .regras {
+            margin-top: 20px;
+        }
+
+        .regras h2 {
+            font-size: 1.4rem;
+            color: #bb86fc;
+            margin-bottom: 10px;
+        }
+
+        .regras ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .regras li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-container">
+            <div class="header-left">
+                <img src="logo.webp" alt="Logo" class="logo">
+                <h1>Scripta</h1>
+            </div>
+            <button class="theme-switcher" id="themeSwitch">
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+
+        <textarea id="codigo" placeholder="Escreva seu código Scripta aqui...">funcao teste() {
+            imprima("Olá, mundo!");
+        }
+        teste();</textarea>
+        <button onclick="executarCodigo()">Executar Código</button>
+        <button class="mark-discord" onclick="marcarDiscord()">
+            <i class="fab fa-discord"></i> Marcar no Discord
+        </button>
+
+        <h2>Saída:</h2>
+        <pre id="saida"></pre>
+
+        <div class="regras">
+            <h2>Comandos do Scripta:</h2>
+            <ul>
+                <li>se -> if</li>
+                <li>senaose -> else if</li>
+                <li>senao -> else</li>
+                <li>enquanto -> while</li>
+                <li>fazer -> do</li>
+                <li>para -> for</li>
+                <li>repita -> for</li>
+                <li>funcao -> function</li>
+                <li>retorne -> return</li>
+                <li>imprima -> console.log</li>
+                <li>concatenar -> concat</li>
+                <li>tamanho -> length</li>
+                <li>substituir -> replace</li>
+                <li>escolher -> switch</li>
+                <li>classe -> class</li>
+                <li>construtor -> constructor</li>
+                <li>nova -> new</li>
+                <li>dicionario -> {}</li>
+                <li>lista[] -> []</li>
+                <li>adicionar -> push</li>
+                <li>remover -> splice</li>
+                <li>encontrar -> find</li>
+                <li>filtrar -> filter</li>
+                <li>mapear -> map</li>
+                <li>todasVogais -> function(str) { return /[aeiou]/i.test(str); }</li>
+                <li>inverter -> function(str) { return str.split('').reverse().join(''); }</li>
+                <li>maiusculas -> toUpperCase</li>
+                <li>minuscule -> toLowerCase</li>
+                <li>formatar -> trim</li>
+                <li>soma -> +</li>
+                <li>subtrair -> -</li>
+                <li>multiplicar -> *</li>
+                <li>dividir -> /</li>
+                <li>maiorQue -> ></li>
+                <li>menorQue -> <</li>
+                <li>igual -> ==</li>
+                <li>nao -> !</li>
+                <li>verdadeiro -> true</li>
+                <li>falso -> false</li>
+                <li>importar -> import</li>
+                <li>exportar -> export</li>
+                <li>tempo -> setTimeout</li>
+                <li>ler -> prompt</li>
+                <li>aguardar -> await</li>
+                <li>chamar -> call</li>
+                <li>durante -> for</li>
+                <li>pegar -> get</li>
+                <li>setar -> set</li>
+                <li>seExistir -> ifExists</li>
+                <li>paraCada -> forEach</li>
+                <li>valores -> values</li>
+                <li>chave -> key</li>
+                <li>valor -> value</li>
+                <li>criar -> create</li>
+                <li>propriedade -> property</li>
+                <li>modificar -> modify</li>
+                <li>retornar -> return</li>
+                <li>encadear -> chain</li>
+                <li>mapearValores -> mapValues</li>
+                <li>jsonString -> JSON.stringify</li>
+                <li>jsonParse -> JSON.parse</li>
+                <li>paraCadaUm -> forEach</li>
+                <li>criarEvento -> createEvent</li>
+                <li>adicionarEvento -> addEventListener</li>
+                <li>removeEvento -> removeEventListener</li>
+                <li>setInterval -> setInterval</li>
+                <li>setTimeout -> setTimeout</li>
+                <li>alertar -> alert</li>
+                <li>confirmar -> confirm</li>
+                <li>naoExiste -> if (!exist)</li>
+                <li>proximo -> next</li>
+                <li>modificarPropriedade -> modifyProperty</li>
+                <li>clonar -> clone</li>
+                <li>ordenar -> sort</li>
+                <li>procurar -> search</li>
+                <li>mesclar -> merge</li>
+                <li>formatarData -> formatDate</li>
+                <li>copiar -> copy</li>
+                <li>colocar -> place</li>
+                <li>seVazio -> ifEmpty</li>
+                <li>seNaoVazio -> ifNotEmpty</li>
+                <li>definir -> set</li>
+                <li>ajustar -> adjust</li>
+                <li>fazerRepetido -> repeat</li>
+                <li>comparar -> compare</li>
+                <li>valorAbsoluto -> Math.abs</li>
+                <li>maiorQueOuIgual -> >=</li>
+                <li>menorQueOuIgual -> <=</li>
+                <li>existe -> exists</li>
+                <li>preencher -> fill</li>
+                <li>salvar -> save</li>
+                <li>exportarDados -> exportData</li>
+                <li>integrar -> integrate</li>
+                <li>compararString -> compareString</li>
+                <li>concatenarArray -> concatArray</li>
+                <li>desempacotar -> unpack</li>
+                <li>filtrarValores -> filterValues</li>
+                <li>buscar -> search</li>
+                <li>maximo -> Math.max</li>
+                <li>minimo -> Math.min</li>
+                <li>aleatorio -> Math.random</li>
+                <li>corrigir -> fix</li>
+                <li>recuperar -> retrieve</li>
+                <li>converter -> convert</li>
+                <li>mesclarObjetos -> Object.assign</li>
+                <li>filtrarObjetos -> filterObjects</li>
+                <li>buscarPropriedade -> findProperty</li>
+                <li>atribuir -> assign</li>
+                <li>customizar -> customize</li>
+        
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let logs = []; 
+
+        console.log = function(message) {
+            logs.push(message); 
+        };
+
+        function executarCodigo() {
+            const codigo = document.getElementById("codigo").value;
+            const codigoCompilado = compilarPortugaScript(codigo);
+            const saida = document.getElementById("saida");
+            logs = []; 
+
+            try {
+                eval(codigoCompilado); 
+                saida.textContent = logs.join('\n'); 
+            } catch (error) {
+                saida.textContent = 'Erro: ' + error.message; 
+            }
+        }
+
+        function marcarDiscord() {
+            const webhookURL = 'SUA_URL_DE_WEBHOOK_AQUI';
+            const mensagem = {
+                content: "Um usuário executou código no Scripta."
+            };
+            fetch(webhookURL, {
+                method: 'POST',
+                body: JSON.stringify(mensagem),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    alert('Mensagem enviada para o Discord!');
+                } else {
+                    alert('Erro ao enviar mensagem para o Discord.');
+                }
+            }).catch(error => {
+                alert('Erro: ' + error.message);
+            });
+        }
+
+        document.getElementById("themeSwitch").addEventListener("click", function() {
+            document.body.classList.toggle("light-theme");
+        });
+    </script>
+</body>
+</html>
